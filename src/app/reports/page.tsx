@@ -4,8 +4,8 @@ import {PieChart} from '@mui/x-charts/PieChart'
 export default function reports(){
 
     return (
-      <section className=''>
-        <h1 className='text-2xl'>Quarterly Reports:</h1>
+      <section className="mt-[100px] lg:mt-0">
+        <h1 className="text-2xl">Quarterly Reports:</h1>
         <PieChart
           series={[
             {
@@ -16,7 +16,7 @@ export default function reports(){
               ],
             },
           ]}
-          width={400}
+          width={600}
           height={200}
         />
       </section>

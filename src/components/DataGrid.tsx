@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import usersData from "@/utils/users";
+import Collapse from "@mui/material/Collapse";
+
 
 const columnsBase: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -95,8 +97,8 @@ export default function DataTable() {
   ];
 
   return (
-    <Box sx={{ height: 400, width: "100%" }} className="space-y-4">
-      <Box className="space-x-2">
+    <Box sx={{ height: 400}} className="space-y-4 w-[100w] lg:w-full">
+      <Box className="space-x-2 ">
         <button
           className={`border px-4 py-2 rounded ml-auto ${
             showForm
@@ -105,12 +107,12 @@ export default function DataTable() {
           } cursor-pointer`}
           onClick={() => setShowForm(!showForm)}
         >
-          {showForm ? "Cancel" : "Add"}
+          {showForm ? "Cancel" : "Add User"}
         </button>
       </Box>
 
-      {showForm && (
-        <div className="space-x-2">
+      <Collapse in={showForm}>
+        <div className="space-x-2 mt-2 space-y-2">
           <input
             placeholder="First name"
             className="border p-2 rounded"
@@ -135,14 +137,13 @@ export default function DataTable() {
             onChange={(e) => setNewUser({ ...newUser, age: e.target.value })}
           />
           <button
-            className="bg-black text-white px-4 py-2 rounded"
+            className="bg-black text-white px-4 py-2 rounded lg:inline block"
             onClick={handleAddingUser}
-
           >
             Submit
           </button>
         </div>
-      )}
+      </Collapse>
 
       <DataGrid
         rows={users}

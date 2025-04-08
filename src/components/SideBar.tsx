@@ -25,6 +25,7 @@ export default function Sidebar() {
         color: "white",
         p: 2,
       }}
+    className='hidden lg:block'
     >
       <List>
         {links.map((link) => (

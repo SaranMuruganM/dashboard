@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "../components/SideBar";
+import NavBar from "@/components/NavBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="grid grid-flow-col grid-cols-[240px_1fr]">
+        <div className="lg:grid lg:grid-flow-col lg:grid-cols-[240px_1fr] overflow-clip min-h-[100vh]">
+          <NavBar/>
           <Sidebar />
-          <div className="p-8">
+          <div className="lg:p-8 p-4">
           {children}
           </div>
         </div>
