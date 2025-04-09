@@ -26,6 +26,7 @@ interface UserContextType {
   handleAddingUser: (newUser: NewUser) => void;
   columnsBase: GridColDef[];
   handleDelete: (id: number) => void;
+
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -33,11 +34,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [users, setUsers] = useState(usersData);
   const [showForm, setShowForm] = useState(false);
-  const [newUser, setNewUser] = useState({
-    firstName: "",
-    lastName: "",
-    age: "",
-  });
+
   useEffect(() => {
     const stored = localStorage.getItem("data");
     if (!stored) {
@@ -47,7 +44,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const handleAddingUser = (newUser :NewUser) => {
+
+
+  const handleAddingUser = (newUser: NewUser) => {
     if (!(newUser.firstName || !newUser.lastName) || !newUser.age) return;
 
     const updatedUsers = [
@@ -56,11 +55,10 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         ...newUser,
         age: parseInt(newUser.age),
       },
-      ...users
+      ...users,
     ];
     setUsers(updatedUsers);
     localStorage.setItem("data", JSON.stringify(updatedUsers));
-    setNewUser({ firstName: "", lastName: "", age: "" });
     setShowForm(false);
   };
 

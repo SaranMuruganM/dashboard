@@ -1,6 +1,7 @@
 import { Drawer, Box, TextField, Button } from "@mui/material";
 import { useUserContext } from "@/context/UserContext";
 import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 const ClientFormPanel = () => {
   const { showForm, setShowForm, handleAddingUser } = useUserContext();
@@ -13,6 +14,19 @@ const ClientFormPanel = () => {
   return (
     <Drawer anchor="right" open={showForm} onClose={() => setShowForm(false)}>
       <Box sx={{ width: 300, padding: 3 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            gap: 1,
+            cursor:'pointer'
+          }}
+          onClick={()=>setShowForm(!showForm)}
+        >
+          <CloseIcon />
+        </Box>
+
         <TextField
           label="First Name"
           fullWidth
@@ -40,7 +54,7 @@ const ClientFormPanel = () => {
         <Button
           variant="contained"
           fullWidth
-          sx={{ mt: 2,backgroundColor:'black'}}
+          sx={{ mt: 2, backgroundColor: "black" }}
           onClick={() => handleAddingUser(newUser)}
         >
           Submit
