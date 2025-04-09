@@ -4,8 +4,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { useUserContext } from "@/context/UserContext";
 
 const ClientTable = () => {
-  const { users, columnsBase, handleDelete } = useUserContext();
-  const [searchTerm, setSearchTerm] = useState("");
+  const { users, columnsBase, handleDelete,searchTerm} = useUserContext();
 
   const columns: GridColDef[] = [
     ...columnsBase,
@@ -34,38 +33,6 @@ const ClientTable = () => {
 
   return (
     <Box className="space-y-4">
-      <Box
-        sx={{
-          display: "flex",
-          gap: 2,
-          alignItems: "center",
-          marginBottom: 3,
-        }}
-      >
-        <TextField
-          label="Search"
-          variant="outlined"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          sx={{
-            width: "300px",
-            Height:"40px"
-          }}
-        />
-
-        <Button
-          variant="outlined"
-          color="error"
-          sx={{
-            height: "40px",
-            textTransform: "none",
-          }}
-          onClick={() => setSearchTerm("")}
-        >
-          Cancel
-        </Button>
-      </Box>
-
       <DataGrid
         rows={filteredUsers}
         columns={columns}
@@ -79,6 +46,7 @@ const ClientTable = () => {
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
         hideFooterSelectedRowCount
+        checkboxSelection
         autoHeight
       />
     </Box>

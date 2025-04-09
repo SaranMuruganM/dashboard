@@ -1,8 +1,9 @@
 "use client";
-
-import { Box, List, ListItemButton, ListItemText } from "@mui/material";
+import { Box, List, ListItemButton, ListItemText, Button, IconButton } from "@mui/material";
 import { useRouter } from "next/navigation";
-
+import { useThemeContext } from "../../context/ThemeContext";
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 const links = [
   { label: "Dashboard", href: "/" },
   { label: "Reports", href: "/reports" },
@@ -11,10 +12,11 @@ const links = [
 
 export default function Sidebar() {
   const router = useRouter();
+  const { mode, toggleTheme } = useThemeContext();
 
-  const handleClick = (href:string)=>{
-      router.push(href);
-  }
+  const handleClick = (href: string) => {
+    router.push(href);
+  };
 
   return (
     <Box
@@ -24,24 +26,31 @@ export default function Sidebar() {
         backgroundColor: "black",
         color: "white",
         p: 2,
+        position: "fixed ",
       }}
-    className='hidden lg:block'
+      className="hidden lg:block"
     >
+      <IconButton
+        onClick={toggleTheme}
+        color="inherit"
+      >
+        {mode === "dark" ? <WbSunnyOutlinedIcon /> : <DarkModeOutlinedIcon />}
+      </IconButton>
+
       <List>
         {links.map((link) => (
-            <ListItemButton
-              sx={{
-                color: "white",
-                "&.Mui-selected": {
-                  backgroundColor: "#333",
-                },
-              }}
-              onClick={()=>handleClick(link.href)}
-              key={link.href}
-            >
-              <ListItemText primary={link.label} />
-            </ListItemButton>
-       
+          <ListItemButton
+            sx={{
+              color: "white",
+              "&.Mui-selected": {
+                backgroundColor: "#333",
+              },
+            }}
+            onClick={() => handleClick(link.href)}
+            key={link.href}
+          >
+            <ListItemText primary={link.label} />
+          </ListItemButton>
         ))}
       </List>
     </Box>

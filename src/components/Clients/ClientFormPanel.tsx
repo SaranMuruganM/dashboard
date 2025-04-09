@@ -20,7 +20,7 @@ const ClientFormPanel = () => {
             justifyContent: "flex-end",
             alignItems: "center",
             gap: 1,
-            cursor:'pointer'
+            cursor:'pointer',
           }}
           onClick={()=>setShowForm(!showForm)}
         >
@@ -54,7 +54,7 @@ const ClientFormPanel = () => {
         <Button
           variant="contained"
           fullWidth
-          sx={{ mt: 2, backgroundColor: "black" }}
+          sx={{ mt: 2,backgroundColor:'black'}}
           onClick={() => handleAddingUser(newUser)}
         >
           Submit

@@ -1,8 +1,16 @@
 "use client";
 
-import { Box, List, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemText,
+  IconButton,
+} from "@mui/material";
 import { useRouter } from "next/navigation";
-
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { useThemeContext } from "@/context/ThemeContext";
 const links = [
   { label: "Dashboard", href: "/" },
   { label: "Reports", href: "/reports" },
@@ -10,6 +18,7 @@ const links = [
 ];
 
 export default function NavBar() {
+  const { mode, toggleTheme } = useThemeContext();
   const router = useRouter();
   const handleClick = (href: string) => {
     router.push(href);
@@ -30,7 +39,7 @@ export default function NavBar() {
           <ListItemButton
             sx={{
               color: "white",
-              flexGrow:0,
+              flexGrow: 0,
               "&.Mui-selected": {
                 backgroundColor: "#333",
               },
@@ -41,6 +50,13 @@ export default function NavBar() {
             <ListItemText primary={link.label} />
           </ListItemButton>
         ))}
+        <IconButton
+          onClick={toggleTheme}
+          color="inherit"
+          sx={{padding:'2px'}}
+        >
+          {mode === "dark" ? <WbSunnyOutlinedIcon /> : <DarkModeOutlinedIcon />}
+        </IconButton>
       </List>
     </Box>
   );

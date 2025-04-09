@@ -26,7 +26,8 @@ interface UserContextType {
   handleAddingUser: (newUser: NewUser) => void;
   columnsBase: GridColDef[];
   handleDelete: (id: number) => void;
-
+  setSearchTerm: (term: string) => void;
+  searchTerm: string;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -34,6 +35,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [users, setUsers] = useState(usersData);
   const [showForm, setShowForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const stored = localStorage.getItem("data");
@@ -78,6 +80,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         handleAddingUser,
         handleDelete,
         columnsBase,
+        setSearchTerm,
+        searchTerm
       }}
     >
       {children}
