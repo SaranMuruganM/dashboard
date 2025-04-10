@@ -2,7 +2,7 @@
 import { createContext, useContext, useState } from "react";
 import usersData from "@/utils/users";
 import { columnsBase } from "@/utils/users";
-import { GridColDef } from "@mui/x-data-grid";
+import { GridColDef, GridRowId } from "@mui/x-data-grid";
 import { useEffect } from "react";
 
 interface User {
@@ -11,6 +11,7 @@ interface User {
   lastName: string | null;
   age: number;
 }
+
 
 export interface NewUser {
   firstName: string;
@@ -28,14 +29,25 @@ interface UserContextType {
   handleDelete: (id: number) => void;
   setSearchTerm: (term: string) => void;
   searchTerm: string;
+  selectedRows: GridRowId[];
+  setSelectedRows: React.Dispatch<React.SetStateAction<GridRowId[]>>;
+  handleAssignUser: (name: string) => void;
+  handleStatus: (current: string) => void;
+  rowSelectionModel: GridRowId[];
+  setRowSelectionModel: React.Dispatch<React.SetStateAction<GridRowId[]>>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+
   const [users, setUsers] = useState(usersData);
   const [showForm, setShowForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRows, setSelectedRows] = useState<GridRowId[]>([]);
+  const [rowSelectionModel, setRowSelectionModel] = useState<GridRowId[]>([]);
+
+
 
   useEffect(() => {
     const stored = localStorage.getItem("data");
@@ -45,6 +57,28 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setUsers(JSON.parse(stored));
     }
   }, []);
+  
+
+  const handleAssignUser = (name: string) => {
+    console.log(selectedRows);
+    const updatedData = users.map((row) =>
+      selectedRows.includes(row.id) ? { ...row, assignedTo: name ==='None'? null: name } : row
+    );
+    setUsers(updatedData);
+    setSelectedRows([]);
+    setRowSelectionModel([]);
+    localStorage.setItem("data", JSON.stringify(updatedData));
+  };
+
+  const handleStatus = (current:string)=>{
+    const updatedData = users.map((row) =>
+      selectedRows.includes(row.id) ? { ...row, status: current === 'None' ? null: current } : row
+    );
+    setUsers(updatedData);
+    setSelectedRows([]);
+    setRowSelectionModel([]);
+    localStorage.setItem("data", JSON.stringify(updatedData));
+  }
 
 
 
@@ -81,7 +115,13 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         handleDelete,
         columnsBase,
         setSearchTerm,
-        searchTerm
+        searchTerm,
+        selectedRows,
+        setSelectedRows,
+        handleAssignUser,
+        handleStatus,
+        rowSelectionModel,
+        setRowSelectionModel,
       }}
     >
       {children}

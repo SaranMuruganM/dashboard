@@ -40,6 +40,16 @@ export const columnsBase: GridColDef[] = [
     width: 160,
     valueGetter: (value, row) => `${row.firstName || ""} ${row.lastName || ""}`,
   },
+  {
+    field: "assignedTo",
+    headerName: "Assigned To",
+    width: 160,
+  },
+  {
+    field: "status",
+    headerName: "Status",
+    width: 140,
+  },
 ];
 
 export default users;

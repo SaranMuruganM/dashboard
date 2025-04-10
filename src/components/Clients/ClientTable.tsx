@@ -2,9 +2,10 @@ import { useState, useMemo } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, Button, TextField } from "@mui/material";
 import { useUserContext } from "@/context/UserContext";
-
+import { ThinCheckboxChecked,ThinCheckboxIndeterminate,ThinCheckboxUnchecked } from "../CheckBox";
 const ClientTable = () => {
-  const { users, columnsBase, handleDelete,searchTerm} = useUserContext();
+
+  const { users, columnsBase, handleDelete,searchTerm,setSelectedRows,rowSelectionModel,setRowSelectionModel} = useUserContext();
 
   const columns: GridColDef[] = [
     ...columnsBase,
@@ -47,7 +48,28 @@ const ClientTable = () => {
         disableRowSelectionOnClick
         hideFooterSelectedRowCount
         checkboxSelection
-        autoHeight
+        rowSelectionModel={rowSelectionModel}
+        onRowSelectionModelChange={(ids) => {
+          setSelectedRows([...ids]);
+          setRowSelectionModel([...ids]);
+        }}
+        slotProps={{
+          baseCheckbox: {
+            icon: <ThinCheckboxUnchecked />,
+            checkedIcon: <ThinCheckboxChecked />,
+            indeterminateIcon: <ThinCheckboxIndeterminate />,
+            disableRipple: true,  
+          },
+        }}
+        sx={{
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+            outline: "none", 
+          },
+          "& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none",
+            },
+        }}
       />
     </Box>
   );

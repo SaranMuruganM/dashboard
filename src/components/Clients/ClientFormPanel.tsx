@@ -31,6 +31,7 @@ const ClientFormPanel = () => {
           label="First Name"
           fullWidth
           margin="normal"
+          size="small"
           value={newUser.firstName}
           onChange={(e) =>
             setNewUser({ ...newUser, firstName: e.target.value })
@@ -40,6 +41,7 @@ const ClientFormPanel = () => {
           label="Last Name"
           fullWidth
           margin="normal"
+          size="small"
           value={newUser.lastName}
           onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}
         />
@@ -48,6 +50,7 @@ const ClientFormPanel = () => {
           type="number"
           fullWidth
           margin="normal"
+          size="small"
           value={newUser.age}
           onChange={(e) => setNewUser({ ...newUser, age: e.target.value })}
         />
